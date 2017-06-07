@@ -47,6 +47,13 @@ If you want to hotplug Hyper Pixel, place `requirements/usr/bin/hyperpixel` into
 
 ### Touch Screen
 
+Make sure the `evdev` module is installed for Python: 
+
+```
+sudo apt-get install python-dev
+sudo pip install evdev
+```
+
 Make sure you add `uinput` to `/etc/modules`, you can insert it manually with:
 
 ```
@@ -55,7 +62,11 @@ sudo modprobe uinput
 
 Copy `requirements/usr/bin/hyperpixel-touch` to `/usr/bin`.
 
+Make sure it's executable with: `sudo chmod +x /usr/bin/hyperpixel-touch`
+
 Copy `requirements/etc/init.d/hyperpixel-touch.sh` to `/etc/init.d`.
+
+Make sure it's executable with: `sudo chmod +x /etc/init.d/hyperpixel-touch.sh`
 
 Then ensure it runs on startup:
 
