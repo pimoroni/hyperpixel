@@ -57,11 +57,7 @@ sudo apt-get install python-dev
 sudo pip install evdev
 ```
 
-Make sure you add `uinput` to `/etc/modules`, you can insert it manually with:
-
-```
-sudo modprobe uinput
-```
+Make sure you add `uinput` to `/etc/modules`.
 
 Copy `requirements/usr/bin/hyperpixel-touch` to `/usr/bin`.
 
@@ -76,3 +72,7 @@ Then ensure it runs on startup:
 ```
 sudo update-rc.d hyperpixel-touch.sh defaults 100
 ```
+
+Reboot!
+
+Enjoy.
