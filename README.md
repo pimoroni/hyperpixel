@@ -19,6 +19,9 @@ initramfs hyperpixel-initramfs.cpio.gz followkernel
 # Use a basic GPIO backlight driver with on/off support
 dtoverlay=hyperpixel-gpio-backlight
 
+# Enable soft i2c for touchscreen
+dtoverlay=i2c-gpio,i2c_gpio_sda=10,i2c_gpio_scl=11,i2c_gpio_delay_us=4
+
 # Disable i2c and spi, they clash with Hyper Pixel's pins
 dtparam=i2c_arm=off
 dtparam=spi=off
