@@ -4,6 +4,8 @@ Bear with us. A one-line installer is coming soon, but for now you'll need to do
 
 ## Manual Setup
 
+### LCD Display
+
 First you'll need to grab the files from `requirements/boot` and place them in the relevant locations in `/boot` on your Pi.
 
 You can do this either on your Pi, or by inserting your SD card into a host computer.
@@ -39,4 +41,24 @@ dpi_output_format=0x6f016
 display_rotate=2
 
 hdmi_timings=800 0 50 20 50 480 1 3 2 3 0 0 0 60 0 32000000 6
+```
+
+If you want to hotplug Hyper Pixel, place `requirements/usr/bin/hyperpixel` into `/usr/bin/` and run it with `hyperpixel` to initialize the LCD.
+
+### Touch Screen
+
+Make sure you add `uinput` to `/etc/modules`, you can insert it manually with:
+
+```
+sudo modprobe uinput
+```
+
+Copy `requirements/usr/bin/hyperpixel-touch` to `/usr/bin`.
+
+Copy `requirements/etc/init.d/hyperpixel-touch.sh` to `/etc/init.d`.
+
+Then ensure it runs on startup:
+
+```
+sudo update-rc.d hyperpixel-touch.sh defaults 100
 ```
