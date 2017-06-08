@@ -47,7 +47,7 @@ def write_status(x1, y1, touch_one, x2, y2, touch_two):
             ui.write(e.EV_KEY, e.BTN_TOUCH, 1)
             ui.write(e.EV_ABS, e.ABS_X, x1)
             ui.write(e.EV_ABS, e.ABS_Y, y1)
-    
+
         elif not last_status_one or (x1, y1) != (last_status_x1, last_status_y1):
             if x1 != last_status_x1: ui.write(e.EV_ABS, e.ABS_X, x1)
             if y1 != last_status_y1: ui.write(e.EV_ABS, e.ABS_Y, y1)
@@ -84,7 +84,7 @@ def write_status(x1, y1, touch_one, x2, y2, touch_two):
             ui.write(e.EV_KEY, e.BTN_TOUCH, 1)
             ui.write(e.EV_ABS, e.ABS_X, x2)
             ui.write(e.EV_ABS, e.ABS_Y, y2)
-    
+
         elif not last_status_two or (x2, y2) != (last_status_x2, last_status_y2):
             if x2 != last_status_x2: ui.write(e.EV_ABS, e.ABS_X, x2)
             if y2 != last_status_y2: ui.write(e.EV_ABS, e.ABS_Y, y2)
@@ -276,7 +276,7 @@ def smbus_read_touch():
         write_status(800-x1, 480-y1, touch_one_start is not None, 800-x2, 480-y2, touch_two_start is not None)
 
 
-    except e:
+    except IOError as e:
         print("Probably IOerror {}".format(e))
         ioerr_count += 1
 

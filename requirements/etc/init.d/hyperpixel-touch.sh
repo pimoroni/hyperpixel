@@ -9,5 +9,4 @@
 # Description:       Touch screen driver for Hyper Pixel
 ### END INIT INFO
 
-sudo bash -c "echo 1  > /sys/class/backlight/backlight/bl_power"
 sudo python /usr/bin/hyperpixel-touch >> /var/log/hptouch.log
