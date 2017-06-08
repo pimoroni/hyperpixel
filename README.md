@@ -12,7 +12,7 @@ reboot. That's all! Enjoy!
 
 ## Important note
 
-HyperPixel uses DPI mode 6, which means you can't use (hardware) I2C or SPI at the same time (the above tweaks to /boot/config.txt will disable those interfaces for you, but make sure not to reenable them by accident).
+HyperPixel uses DPI mode 6, which means you can't use (hardware) I2C or SPI at the same time (the `setup.sh` script will disable those interfaces for you, but make sure not to reenable them by accident).
 
 In addition, DAC type of products communicatng with the PI over I2S are also incompatble, as they use the same pins. It is possible to use the on-board audio chip alongside HyperPixel however, provided you force route the audio signal over HDMI, or are happy losing refined control over the backlight (PWM).
 
