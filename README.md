@@ -8,39 +8,13 @@ Bear with us. A one-line installer is coming soon, but for now you'll need to cl
 ./setup.sh
 ```
 
-reboot when prompted. That's all! Enjoy!
-
-## Important note
-
-HyperPixel uses DPI mode 6, which means you can't use (hardware) I2C or SPI at the same time.
-
-In addition, DAC type of products communicatng with the PI over I2S are also incompatble, as they use the same pins. It is possible to use the on-board audio chip alongside HyperPixel however, provided you force route the audio signal over HDMI, or are happy losing refined control over the backlight (PWM).
-
-## Manual Setup
-
-### LCD Display
-
-First you'll need to grab the files from `requirements/boot` and place them in the relevant locations in `/boot` on your Pi.
-
-You can do this either on your Pi, or by inserting your SD card into a host computer.
-
-Next, add the following to the bottom of your /boot/config.txt
+And last, add the following to the bottom of your /boot/config.txt
 
 ```
 # Initialize Hyper Pixel at boot using an initramfs
 initramfs hyperpixel-initramfs.cpio.gz followkernel
 
-# Use a basic GPIO backlight driver with on/off support
-dtoverlay=hyperpixel-gpio-backlight
-
-# Enable soft i2c for touchscreen
-dtoverlay=i2c-gpio,i2c_gpio_sda=10,i2c_gpio_scl=11,i2c_gpio_delay_us=4
-
-# Disable i2c and spi, they clash with Hyper Pixel's pins
-dtparam=i2c_arm=off
-dtparam=spi=off
-
-# LCD Settings
+# HyperPixel LCD Settings
 dtoverlay=hyperpixel
 overscan_left=0
 overscan_right=0
@@ -52,13 +26,36 @@ enable_dpi_lcd=1
 display_default_lcd=1
 dpi_group=2
 dpi_mode=87
-
 dpi_output_format=0x6f016
-
 display_rotate=2
-
 hdmi_timings=800 0 50 20 50 480 1 3 2 3 0 0 0 60 0 32000000 6
+
+# Use a basic GPIO backlight driver with on/off support
+dtoverlay=hyperpixel-gpio-backlight
+
+# Disable i2c and spi, they clash with Hyper Pixel's pins
+dtparam=i2c_arm=off
+dtparam=spi=off
+
+# Enable soft i2c for touchscreen
+dtoverlay=i2c-gpio,i2c_gpio_sda=10,i2c_gpio_scl=11,i2c_gpio_delay_us=4
 ```
+
+reboot. That's all! Enjoy!
+
+## Important note
+
+HyperPixel uses DPI mode 6, which means you can't use (hardware) I2C or SPI at the same time (the above tweaks to /boot/config.txt will disable those interfaces for you, but make sure not to reenable them by accident).
+
+In addition, DAC type of products communicatng with the PI over I2S are also incompatble, as they use the same pins. It is possible to use the on-board audio chip alongside HyperPixel however, provided you force route the audio signal over HDMI, or are happy losing refined control over the backlight (PWM).
+
+## Manual Setup
+
+### LCD Display
+
+First you'll need to grab the files from `requirements/boot` and place them in the relevant locations in `/boot` on your Pi.
+
+You can do this either on your Pi, or by inserting your SD card into a host computer.
 
 If you want to hotplug Hyper Pixel, place `requirements/usr/bin/hyperpixel` into `/usr/bin/` and run it with `hyperpixel` to initialize the LCD.
 
