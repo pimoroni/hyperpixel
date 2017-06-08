@@ -220,7 +220,7 @@ sudo chmod +x /etc/init.d/hyperpixel-touch.sh
 sudo update-rc.d hyperpixel-touch.sh defaults 100
 
 
-if [ $(grep -c "hyperpixel" $CONFIG == 0 ]; then
+if [ $(grep -c "hyperpixel" $CONFIG) == 0 ]; then
     echo "no mention of hyperpixel"
     cat <<'EOT' >> $CONFIG
 
