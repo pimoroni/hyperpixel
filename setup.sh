@@ -183,7 +183,7 @@ fi
 
 echo -e "Installing dependencies..."
 
-if ! apt_pkg_req "python-evdev" &> /dev/null; then
+if apt_pkg_req "python-evdev" &> /dev/null; then
     sudo dpkg -i ./dependencies/python-evdev_0.6.4-1_armhf.deb
 fi
 
@@ -258,8 +258,8 @@ fi
 
 success "\nAll done!\n"
 
-#if [ "$FORCE" != '-y' ]; then
-#    sysreboot
-#fi; echo
+if [ "$FORCE" != '-y' ]; then
+    sysreboot
+fi; echo
 
 exit 0
