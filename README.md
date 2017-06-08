@@ -8,7 +8,25 @@ Bear with us. A one-line installer is coming soon, but for now you'll need to cl
 ./setup.sh
 ```
 
-And last, add the following to the bottom of your /boot/config.txt
+reboot. That's all! Enjoy!
+
+## Important note
+
+HyperPixel uses DPI mode 6, which means you can't use (hardware) I2C or SPI at the same time (the above tweaks to /boot/config.txt will disable those interfaces for you, but make sure not to reenable them by accident).
+
+In addition, DAC type of products communicatng with the PI over I2S are also incompatble, as they use the same pins. It is possible to use the on-board audio chip alongside HyperPixel however, provided you force route the audio signal over HDMI, or are happy losing refined control over the backlight (PWM).
+
+## Manual Setup
+
+### LCD Display
+
+First you'll need to grab the files from `requirements/boot` and place them in the relevant locations in `/boot` on your Pi.
+
+You can do this either on your Pi, or by inserting your SD card into a host computer.
+
+If you want to hotplug Hyper Pixel, place `requirements/usr/bin/hyperpixel` into `/usr/bin/` and run it with `hyperpixel` to initialize the LCD.
+
+Then, add the following to the bottom of your /boot/config.txt
 
 ```
 # Initialize Hyper Pixel at boot using an initramfs
@@ -40,24 +58,6 @@ dtparam=spi=off
 # Enable soft i2c for touchscreen
 dtoverlay=i2c-gpio,i2c_gpio_sda=10,i2c_gpio_scl=11,i2c_gpio_delay_us=4
 ```
-
-reboot. That's all! Enjoy!
-
-## Important note
-
-HyperPixel uses DPI mode 6, which means you can't use (hardware) I2C or SPI at the same time (the above tweaks to /boot/config.txt will disable those interfaces for you, but make sure not to reenable them by accident).
-
-In addition, DAC type of products communicatng with the PI over I2S are also incompatble, as they use the same pins. It is possible to use the on-board audio chip alongside HyperPixel however, provided you force route the audio signal over HDMI, or are happy losing refined control over the backlight (PWM).
-
-## Manual Setup
-
-### LCD Display
-
-First you'll need to grab the files from `requirements/boot` and place them in the relevant locations in `/boot` on your Pi.
-
-You can do this either on your Pi, or by inserting your SD card into a host computer.
-
-If you want to hotplug Hyper Pixel, place `requirements/usr/bin/hyperpixel` into `/usr/bin/` and run it with `hyperpixel` to initialize the LCD.
 
 ### Touch Screen
 
@@ -92,12 +92,10 @@ sudo chmod +x /usr/bin/hyperpixel-touch
 sudo chmod +x /etc/init.d/hyperpixel-touch.sh
 ```
 
-Then ensure it runs on startup:
+Then ensure the init script runs on startup:
 
 ```
 sudo update-rc.d hyperpixel-touch.sh defaults 100
 ```
 
-Reboot!
-
-Enjoy.
+After a reboot, you should have a working 800x400 display with touchscreen support up and running!
