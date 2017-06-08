@@ -50,7 +50,14 @@ If you want to hotplug Hyper Pixel, place `requirements/usr/bin/hyperpixel` into
 
 ### Touch Screen
 
-Make sure the `evdev` module is installed for Python: 
+We need to ensure the `evdev` module is installed for Python. The easiest is to grab our pre-compiled deb file:
+
+```
+cd ./dependencies/
+sudo dpkg -i ./python-evdev_0.6.4-1_armhf.deb
+```
+
+alternatively, you can install it from source like so:
 
 ```
 sudo apt-get install python-dev
