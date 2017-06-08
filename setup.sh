@@ -219,6 +219,41 @@ sudo cp ./requirements/etc/init.d/* /etc/init.d/ &> /dev/null
 sudo chmod +x /etc/init.d/hyperpixel-touch.sh
 sudo update-rc.d hyperpixel-touch.sh defaults 100
 
+
+if ! grep "hyperpixel" $CONFIG; then
+cat <<EOT >> $CONFIG
+
+# Initialize Hyper Pixel at boot using an initramfs
+initramfs hyperpixel-initramfs.cpio.gz followkernel
+
+# HyperPixel LCD Settings
+dtoverlay=hyperpixel
+overscan_left=0
+overscan_right=0
+overscan_top=0
+overscan_bottom=0
+framebuffer_width=800
+framebuffer_height=480
+enable_dpi_lcd=1
+display_default_lcd=1
+dpi_group=2
+dpi_mode=87
+dpi_output_format=0x6f016
+display_rotate=2
+hdmi_timings=800 0 50 20 50 480 1 3 2 3 0 0 0 60 0 32000000 6
+
+# Use a basic GPIO backlight driver with on/off support
+dtoverlay=hyperpixel-gpio-backlight
+
+# Disable i2c and spi, they clash with Hyper Pixel's pins
+dtparam=i2c_arm=off
+dtparam=spi=off
+
+# Enable soft i2c for touchscreen
+dtoverlay=i2c-gpio,i2c_gpio_sda=10,i2c_gpio_scl=11,i2c_gpio_delay_us=4
+EOT
+fi
+
 success "\nAll done!\n"
 
 #if [ "$FORCE" != '-y' ]; then
