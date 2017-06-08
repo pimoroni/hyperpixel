@@ -198,20 +198,31 @@ fi
 
 echo -e "\nInstalling Requirements..."
 
-sudo cp ./requirements/boot/* /boot/
+dtbolist=( "hyperpixel.dtbo" "hyperpixel-gpio-backlight.dtbo" )
 
-sudo cp ./requirements/usr/bin/* /usr/bin/
-sudo chmod +x /usr/bin/hyperpixel-init
-sudo chmod +x /usr/bin/hyperpixel-touch
+for dtbofile in ${dtbolist[@]}; do
+    sudo cp ./requirements/boot/overlays/$dtbofile /boot/overlays/ &> /dev/null
+done
 
-sudo cp ./requirements/etc/init.d/* /etc/init.d/
+binlist=( "hyperpixel-init" "hyperpixel-touch" )
+
+for binfile in ${binlist[@]}; do
+    sudo cp ./requirements/usr/bin/$binfile /usr/bin/ &> /dev/null
+    sudo chmod +x /usr/bin/
+done
+
+echo -e "\nInstalling init script..."
+
+sudo cp ./requirements/boot/hyperpixel-initramfs.cpio.gz /boot/ &> /dev/null
+
+sudo cp ./requirements/etc/init.d/* /etc/init.d/ &> /dev/null
 sudo chmod +x /etc/init.d/hyperpixel-touch.sh
 sudo update-rc.d hyperpixel-touch.sh defaults 100
 
 success "\nAll done!\n"
 
-if [ "$FORCE" != '-y' ]; then
-    sysreboot
-fi; echo
+#if [ "$FORCE" != '-y' ]; then
+#    sysreboot
+#fi; echo
 
 exit 0
