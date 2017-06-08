@@ -1,6 +1,22 @@
-# Hyper Pixel
+# HyperPixel
 
 Bear with us. A one-line installer is coming soon, but for now you'll need to do:
+
+## Automatic Setup (recommended)
+
+run:
+
+```
+./setup.sh
+```
+
+reboot when prompted. That's all! Enjoy!
+
+## Important note
+
+HyperPixel uses DPI mode 6, which means you can't use (hardware) I2C or SPI at the same time.
+
+In addition, DAC type of products communicatng with the PI over I2S are also incompatble, as they use the same pins. It is possible to use the on-board audio chip alongside HyperPixel however, provided you force route the audio signal over HDMI, or are happy losing refined control over the backlight (PWM).
 
 ## Manual Setup
 
