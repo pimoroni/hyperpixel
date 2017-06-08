@@ -66,13 +66,19 @@ sudo pip install evdev
 
 Make sure you add `uinput` to `/etc/modules`.
 
-Copy `requirements/usr/bin/hyperpixel-touch` to `/usr/bin`.
+Also copy the following:
 
-Make sure it's executable with: `sudo chmod +x /usr/bin/hyperpixel-touch`
+```
+sudo cp requirements/usr/bin/hyperpixel-touch /usr/bin/
+sudo cp requirements/etc/init.d/hyperpixel-touch.sh /etc/init.d/
+```
 
-Copy `requirements/etc/init.d/hyperpixel-touch.sh` to `/etc/init.d`.
+and make sure they are executable:
 
-Make sure it's executable with: `sudo chmod +x /etc/init.d/hyperpixel-touch.sh`
+```
+sudo chmod +x /usr/bin/hyperpixel-touch
+sudo chmod +x /etc/init.d/hyperpixel-touch.sh
+```
 
 Then ensure it runs on startup:
 
