@@ -220,8 +220,9 @@ sudo chmod +x /etc/init.d/hyperpixel-touch.sh
 sudo update-rc.d hyperpixel-touch.sh defaults 100
 
 
-if ! grep "hyperpixel" $CONFIG; then
-cat <<EOT >> $CONFIG
+if [ $(grep -c "hyperpixel" $CONFIG == 0 ]; then
+    echo "no mention of hyperpixel"
+    cat <<'EOT' >> $CONFIG
 
 # Initialize Hyper Pixel at boot using an initramfs
 initramfs hyperpixel-initramfs.cpio.gz followkernel
@@ -252,6 +253,7 @@ dtparam=spi=off
 # Enable soft i2c for touchscreen
 dtoverlay=i2c-gpio,i2c_gpio_sda=10,i2c_gpio_scl=11,i2c_gpio_delay_us=4
 EOT
+
 fi
 
 success "\nAll done!\n"
