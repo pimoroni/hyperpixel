@@ -1,10 +1,8 @@
 # HyperPixel
 
-Bear with us. A one-line installer is coming soon, but for now you'll need to do:
-
 ## Automatic Setup (recommended)
 
-run:
+Bear with us. A one-line installer is coming soon, but for now you'll need to clone this repository, then run:
 
 ```
 ./setup.sh
