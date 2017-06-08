@@ -70,6 +70,7 @@ Make sure you add `uinput` to `/etc/modules`.
 Also copy the following:
 
 ```
+sudo cp ./requirements/usr/bin/hyperpixel-init /usr/bin/
 sudo cp ./requirements/usr/bin/hyperpixel-touch /usr/bin/
 sudo cp ./requirements/etc/init.d/hyperpixel-touch.sh /etc/init.d/
 ```
@@ -77,6 +78,7 @@ sudo cp ./requirements/etc/init.d/hyperpixel-touch.sh /etc/init.d/
 and make sure they are executable:
 
 ```
+sudo chmod +x /usr/bin/hyperpixel-init
 sudo chmod +x /usr/bin/hyperpixel-touch
 sudo chmod +x /etc/init.d/hyperpixel-touch.sh
 ```
