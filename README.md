@@ -55,6 +55,7 @@ We need to ensure the `evdev` module is installed for Python. The easiest is to 
 ```
 cd ./dependencies/
 sudo dpkg -i ./python-evdev_0.6.4-1_armhf.deb
+cd ..
 ```
 
 alternatively, you can install it from source like so:
@@ -69,8 +70,8 @@ Make sure you add `uinput` to `/etc/modules`.
 Also copy the following:
 
 ```
-sudo cp requirements/usr/bin/hyperpixel-touch /usr/bin/
-sudo cp requirements/etc/init.d/hyperpixel-touch.sh /etc/init.d/
+sudo cp ./requirements/usr/bin/hyperpixel-touch /usr/bin/
+sudo cp ./requirements/etc/init.d/hyperpixel-touch.sh /etc/init.d/
 ```
 
 and make sure they are executable:
