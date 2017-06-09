@@ -1,6 +1,7 @@
 # HyperPixel
+https://shop.pimoroni.com/products/hyperpixel
 
-17x7 pixels of single-colour, brightness-controlled, message scrolling goodness!
+A high-resolution, high-speed 3.5" TFT display for your Raspberry Pi.
 
 ## Installing
 
