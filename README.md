@@ -1,8 +1,23 @@
 # HyperPixel
 
-## Automatic Setup (recommended)
+17x7 pixels of single-colour, brightness-controlled, message scrolling goodness!
 
-Bear with us. A one-line installer is coming soon, but for now you'll need to clone this repository, then run:
+## Installing
+
+### Full install (recommended):
+
+We've created an easy installation script that will install all pre-requisites and get your HyperPixel up and running with minimal efforts. To run it, fire up Terminal which you'll find in Menu -> Accessories -> Terminal
+on your Raspberry Pi desktop, as illustrated below:
+
+![Finding the terminal](http://get.pimoroni.com/resources/github-repo-terminal.png)
+
+In the new terminal window type the command exactly as it appears below (check for typos) and follow the on-screen instructions:
+
+```bash
+curl https://get.pimoroni.com/hyperpixel | bash
+```
+
+Alternatively, clone this repository and run:
 
 ```
 ./setup.sh
