@@ -1,4 +1,4 @@
-# HyperPixel
+![HyperPixel](https://ci6.googleusercontent.com/proxy/YfpDcYSZFXtvv1LQvBIXDtw6FxcszF5TjyhccIQHJGkMGMoEGhPKsX99aFiLl7Ktj13uP6MotUZTroGpkaCQ_bvAYkEa9yt6EXYCE5IG8XOjdZDZvC7eOkdljnwDpWjn20xakMVj__3ktnf8AKg9oPtRSTU7TmNkin670P8=s0-d-e1-ft#https://gallery.mailchimp.com/96bc28d6ec83869a3f0b79a62/images/bfd012fb-9ad5-4fc8-9d9c-9c66a9ecb80d.png)
 https://shop.pimoroni.com/products/hyperpixel
 
 A high-resolution, high-speed 3.5" TFT display for your Raspberry Pi.
