@@ -213,19 +213,14 @@ done
 
 echo -e "\nInstalling init script..."
 
-sudo cp ./requirements/boot/hyperpixel-initramfs.cpio.gz /boot/ &> /dev/null
-
-sudo cp ./requirements/etc/init.d/* /etc/init.d/ &> /dev/null
-sudo chmod +x /etc/init.d/hyperpixel-touch.sh
-sudo update-rc.d hyperpixel-touch.sh defaults 100
+sudo cp ./requirements/usr/lib/systemd/system/* /usr/lib/systemd/system/ &> /dev/null
+sudo systemctl enable hyperpixel-init
+sudo systemctl enable hyperpixel-touch
 
 
 if [ $(grep -c "hyperpixel" $CONFIG) == 0 ]; then
     echo -e "\nWriting settings to $CONFIG..."
     sudo bash -c "cat <<EOT >> $CONFIG
-
-# Initialize Hyper Pixel at boot using an initramfs
-initramfs hyperpixel-initramfs.cpio.gz followkernel
 
 # HyperPixel LCD Settings
 dtoverlay=hyperpixel

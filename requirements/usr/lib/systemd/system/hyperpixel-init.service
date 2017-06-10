@@ -1,0 +1,11 @@
+[Unit]
+Description=Hyperpixel LCD Display Initialization
+DefaultDependencies=no
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/hyperpixel-init
+
+[Install]
+WantedBy=multi-user.target
