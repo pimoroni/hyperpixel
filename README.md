@@ -40,7 +40,7 @@ First you'll need to grab the files from `requirements/boot` and place them in t
 
 You can do this either on your Pi, or by inserting your SD card into a host computer.
 
-If you want to hotplug Hyper Pixel, place `requirements/usr/bin/hyperpixel` into `/usr/bin/` and run it with `hyperpixel` to initialize the LCD.
+If you want to hotplug Hyper Pixel, place `requirements/usr/bin/hyperpixel-init` into `/usr/bin/` and run it with `hyperpixel-init` to initialize the LCD.
 
 Then, add the following to the bottom of your /boot/config.txt
 
@@ -114,4 +114,4 @@ Then ensure the init script runs on startup:
 sudo update-rc.d hyperpixel-touch.sh defaults 100
 ```
 
-After a reboot, you should have a working 800x400 display with touchscreen support up and running!
+After a reboot, you should have a working 800x480 display with touchscreen support up and running!
