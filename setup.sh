@@ -195,6 +195,8 @@ done
 
 echo -e "\nInstalling Requirements..."
 
+sudo rm /etc/init.d/hyperpixel-touch.sh &> /dev/null # remove old init script
+
 dtbolist=( "hyperpixel" "hyperpixel-gpio-backlight" )
 
 for dtbofile in ${dtbolist[@]}; do
