@@ -195,10 +195,10 @@ done
 
 echo -e "\nInstalling Requirements..."
 
-dtbolist=( "hyperpixel.dtbo" "hyperpixel-gpio-backlight.dtbo" )
+dtbolist=( "hyperpixel" "hyperpixel-gpio-backlight" )
 
 for dtbofile in ${dtbolist[@]}; do
-    sudo cp ./requirements/boot/overlays/$dtbofile /boot/overlays/ &> /dev/null
+    sudo cp ./requirements/boot/overlays/$dtbofile.dtbo /boot/overlays/ &> /dev/null
 done
 
 binlist=( "hyperpixel-init" "hyperpixel-touch" )
@@ -213,7 +213,7 @@ echo -e "\nInstalling init script..."
 initlist=( "hyperpixel-init" "hyperpixel-touch" )
 
 for initfile in ${initlist[@]}; do
-    sudo cp ./requirements/usr/lib/systemd/system/$initfile /usr/lib/systemd/system/ &> /dev/null
+    sudo cp ./requirements/usr/lib/systemd/system/$initfile.service /usr/lib/systemd/system/ &> /dev/null
     sudo systemctl enable $initfile
 done
 
