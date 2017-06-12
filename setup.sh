@@ -205,7 +205,7 @@ binlist=( "hyperpixel-init" "hyperpixel-touch" )
 
 for binfile in ${binlist[@]}; do
     sudo cp ./requirements/usr/bin/$binfile /usr/bin/ &> /dev/null
-    sudo chmod +x /usr/bin/
+    sudo chmod +x /usr/bin/$binfile
 done
 
 echo -e "\nInstalling init script..."
