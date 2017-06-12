@@ -1,0 +1,13 @@
+[Unit]
+Description=Hyperpixel LCD Touch Screen Driver Daemon
+DefaultDependencies=no
+After=local-fs.target
+
+[Service]
+ExecStart=/usr/bin/hyperpixel-touch
+Restart=on-failure
+Type=forking
+PIDFile=/var/run/hyperpixel-touch.pid
+
+[Install]
+WantedBy=multi-user.target
