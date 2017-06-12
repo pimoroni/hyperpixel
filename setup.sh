@@ -36,7 +36,7 @@ armv6="yes" # whether armv6 processors are supported
 armv7="yes" # whether armv7 processors are supported
 armv8="yes" # whether armv8 processors are supported
 raspbianonly="no" # whether the script is allowed to run on other OSes
-pkgdeplist=( "python-pip" "python-dev" ) # list of dependencies
+pkgdeplist=( "python-rpi.gpio" "python-smbus" ) # list of dependencies
 
 FORCE=""
 
@@ -187,21 +187,18 @@ if apt_pkg_req "python-evdev" &> /dev/null; then
     sudo dpkg -i ./dependencies/python-evdev_0.6.4-1_armhf.deb
 fi
 
-if apt_pkg_req "python-evdev" &> /dev/null; then
-    for pkgdep in ${pkgdeplist[@]}; do
-        if apt_pkg_req "$pkgdep"; then
-            sysupdate && apt_pkg_install "$pkgdep"
-        fi
-    done
-    sudo pip install evdev
-fi
+for pkgdep in ${pkgdeplist[@]}; do
+    if apt_pkg_req "$pkgdep"; then
+        sysupdate && apt_pkg_install "$pkgdep"
+    fi
+done
 
 echo -e "\nInstalling Requirements..."
 
-dtbolist=( "hyperpixel.dtbo" "hyperpixel-gpio-backlight.dtbo" )
+dtbolist=( "hyperpixel" "hyperpixel-gpio-backlight" )
 
 for dtbofile in ${dtbolist[@]}; do
-    sudo cp ./requirements/boot/overlays/$dtbofile /boot/overlays/ &> /dev/null
+    sudo cp ./requirements/boot/overlays/$dtbofile.dtbo /boot/overlays/ &> /dev/null
 done
 
 binlist=( "hyperpixel-init" "hyperpixel-touch" )
@@ -213,22 +210,18 @@ done
 
 echo -e "\nInstalling init script..."
 
-sudo cp ./requirements/boot/hyperpixel-initramfs.cpio.gz /boot/ &> /dev/null
+sudo rm /etc/init.d/hyperpixel-touch.sh &> /dev/null # remove old init script
 
-initlist=( "hyperpixel-touch.sh" )
+initlist=( "hyperpixel-init" "hyperpixel-touch" )
 
 for initfile in ${initlist[@]}; do
-    sudo cp ./requirements/etc/init.d/$initfile /etc/init.d/ &> /dev/null
-    sudo chmod +x /etc/init.d/$initfile
-    sudo update-rc.d $initfile defaults 100
+    sudo cp ./requirements/usr/lib/systemd/system/$initfile.service /usr/lib/systemd/system/ &> /dev/null
+    sudo systemctl enable $initfile
 done
 
 if [ $(grep -c "hyperpixel" $CONFIG) == 0 ]; then
     echo -e "\nWriting settings to $CONFIG..."
     sudo bash -c "cat <<EOT >> $CONFIG
-
-# Initialize Hyper Pixel at boot using an initramfs
-initramfs hyperpixel-initramfs.cpio.gz followkernel
 
 # HyperPixel LCD Settings
 dtoverlay=hyperpixel
@@ -248,13 +241,6 @@ hdmi_timings=800 0 50 20 50 480 1 3 2 3 0 0 0 60 0 32000000 6
 
 # Use a basic GPIO backlight driver with on/off support
 dtoverlay=hyperpixel-gpio-backlight
-
-# Disable i2c and spi, they clash with Hyper Pixel's pins
-dtparam=i2c_arm=off
-dtparam=spi=off
-
-# Enable soft i2c for touchscreen
-dtoverlay=i2c-gpio,i2c_gpio_sda=10,i2c_gpio_scl=11,i2c_gpio_delay_us=4
 EOT"
 
 fi
