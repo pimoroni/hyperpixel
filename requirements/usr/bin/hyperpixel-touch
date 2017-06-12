@@ -1,12 +1,13 @@
 #!/usr/bin/env python
-import RPi.GPIO as GPIO
-import time
-import sys
-import smbus
-import signal
 
-from evdev import uinput, UInput, AbsInfo, ecodes as e
+import signal
+import sys
 import time
+
+import RPi.GPIO as GPIO
+import smbus
+from evdev import uinput, UInput, AbsInfo, ecodes as e
+
 
 cap = {
         #e.EV_REL : [e.REL_WHEEL],
@@ -21,8 +22,8 @@ cap = {
                 (e.ABS_MT_POSITION_Y, AbsInfo(value=0, min=0, max=480, fuzz=0, flat=0, resolution=0)),
         ),
         e.EV_KEY : [
-		#e.BTN_LEFT, e.BTN_RIGHT, 
-		e.BTN_TOUCH, 
+		#e.BTN_LEFT, e.BTN_RIGHT,
+		e.BTN_TOUCH,
 	]
 }
 
@@ -127,7 +128,7 @@ def write_rightclick():
     ui.write(e.EV_KEY, e.BTN_RIGHT, 0)
     ui.syn()
 
-INT = 27 # Shared with LCD_SPI_CLK, interrupt is unreadable when the panel configuration is being sent. 
+INT = 27 # Shared with LCD_SPI_CLK, interrupt is unreadable when the panel configuration is being sent.
 
 ADDR = 0x5c
 
@@ -177,7 +178,7 @@ def touch_finished(x1,y1,x2,y2):
 
     if touch_one_start and (x1,y1) == (0,0):
         touch_one_dur = time.time()-touch_one_start
-    
+
         #print("Touch 1 lasted {}".format(touch_one_dur))
 
         touch_one_end = time.time()
@@ -185,7 +186,7 @@ def touch_finished(x1,y1,x2,y2):
 
     if touch_two_start and (x2,y2) == (0,0):
         touch_two_dur = time.time()-touch_two_start
-    
+
         #print("Touch 2 lasted {}".format(touch_two_dur))
 
         touch_two_end = time.time()
@@ -247,7 +248,7 @@ def smbus_read_touch():
                     touch_two_start = time.time()
                     #print("Touch 2: ON")
 
-        
+
             else:
                 if touch_two_start:
                     touch_finished(x1,y1,x2,y2)
@@ -294,8 +295,3 @@ if __name__ == "__main__":
             smbus_read_touch()
 
         time.sleep(0.003)
-
-
-
-
-
