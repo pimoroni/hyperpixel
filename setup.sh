@@ -36,7 +36,7 @@ armv6="yes" # whether armv6 processors are supported
 armv7="yes" # whether armv7 processors are supported
 armv8="yes" # whether armv8 processors are supported
 raspbianonly="no" # whether the script is allowed to run on other OSes
-pkgdeplist=( "python-pip" "python-dev" ) # list of dependencies
+pkgdeplist=( "python-rpi.gpio" "python-smbus" ) # list of dependencies
 
 FORCE=""
 
@@ -187,14 +187,11 @@ if apt_pkg_req "python-evdev" &> /dev/null; then
     sudo dpkg -i ./dependencies/python-evdev_0.6.4-1_armhf.deb
 fi
 
-if apt_pkg_req "python-evdev" &> /dev/null; then
-    for pkgdep in ${pkgdeplist[@]}; do
-        if apt_pkg_req "$pkgdep"; then
-            sysupdate && apt_pkg_install "$pkgdep"
-        fi
-    done
-    sudo pip install evdev
-fi
+for pkgdep in ${pkgdeplist[@]}; do
+    if apt_pkg_req "$pkgdep"; then
+        sysupdate && apt_pkg_install "$pkgdep"
+    fi
+done
 
 echo -e "\nInstalling Requirements..."
 
@@ -213,10 +210,12 @@ done
 
 echo -e "\nInstalling init script..."
 
-sudo cp ./requirements/usr/lib/systemd/system/* /usr/lib/systemd/system/ &> /dev/null
-sudo systemctl enable hyperpixel-init
-sudo systemctl enable hyperpixel-touch
+initlist=( "hyperpixel-init" "hyperpixel-touch" )
 
+for initfile in ${initlist[@]}; do
+    sudo cp ./requirements/usr/lib/systemd/system/$initfile /usr/lib/systemd/system/ &> /dev/null
+    sudo systemctl enable $initfile
+done
 
 if [ $(grep -c "hyperpixel" $CONFIG) == 0 ]; then
     echo -e "\nWriting settings to $CONFIG..."
