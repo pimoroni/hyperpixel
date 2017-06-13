@@ -45,9 +45,6 @@ If you want to hotplug Hyper Pixel, place `requirements/usr/bin/hyperpixel-init`
 Then, add the following to the bottom of your /boot/config.txt
 
 ```
-# Initialize Hyper Pixel at boot using an initramfs
-initramfs hyperpixel-initramfs.cpio.gz followkernel
-
 # HyperPixel LCD Settings
 dtoverlay=hyperpixel
 overscan_left=0
@@ -66,13 +63,6 @@ hdmi_timings=800 0 50 20 50 480 1 3 2 3 0 0 0 60 0 32000000 6
 
 # Use a basic GPIO backlight driver with on/off support
 dtoverlay=hyperpixel-gpio-backlight
-
-# Disable i2c and spi, they clash with Hyper Pixel's pins
-dtparam=i2c_arm=off
-dtparam=spi=off
-
-# Enable soft i2c for touchscreen
-dtoverlay=i2c-gpio,i2c_gpio_sda=10,i2c_gpio_scl=11,i2c_gpio_delay_us=4
 ```
 
 ### Touch Screen
