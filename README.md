@@ -87,21 +87,22 @@ Also copy the following:
 ```
 sudo cp ./requirements/usr/bin/hyperpixel-init /usr/bin/
 sudo cp ./requirements/usr/bin/hyperpixel-touch /usr/bin/
-sudo cp ./requirements/etc/init.d/hyperpixel-touch.sh /etc/init.d/
+sudo cp ./requirements/usr/lib/systemd/system/hyperpixel-init.service /usr/lib/systemd/system/
+sudo cp ./requirements/usr/lib/systemd/system/hyperpixel-touch.service /usr/lib/systemd/system/
 ```
 
-and make sure they are executable:
+Make sure the relevant files are executable:
 
 ```
 sudo chmod +x /usr/bin/hyperpixel-init
 sudo chmod +x /usr/bin/hyperpixel-touch
-sudo chmod +x /etc/init.d/hyperpixel-touch.sh
 ```
 
-Then ensure the init script runs on startup:
+And ensure the services run on startup:
 
 ```
-sudo update-rc.d hyperpixel-touch.sh defaults 100
+sudo systemctl enable hyperpixel-init
+sudo systemctl enable hyperpixel-touch
 ```
 
 After a reboot, you should have a working 800x480 display with touchscreen support up and running!
