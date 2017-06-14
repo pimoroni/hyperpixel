@@ -246,6 +246,11 @@ EOT"
 
 fi
 
+if ! grep -q "^i2c[-_]dev" $LOADMOD; then
+    echo "i2c-dev" | sudo tee -a $LOADMOD &> /dev/null
+    sudo modprobe -a i2c-dev
+fi
+
 success "\nAll done!\n"
 
 if [ "$FORCE" != '-y' ]; then
