@@ -211,6 +211,7 @@ done
 echo -e "\nInstalling init script..."
 
 sudo rm /etc/init.d/hyperpixel-touch.sh &> /dev/null # remove old init script
+mkdir -p /usr/lib/systemd/system
 
 initlist=( "hyperpixel-init" "hyperpixel-touch" )
 
