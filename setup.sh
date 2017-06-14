@@ -216,7 +216,7 @@ sudo mkdir -p /usr/lib/systemd/system
 initlist=( "hyperpixel-init" "hyperpixel-touch" )
 
 for initfile in ${initlist[@]}; do
-    sudo cp ./requirements/usr/lib/systemd/system/$initfile.service /usr/lib/systemd/system/ &> /dev/null
+    sudo cp ./requirements/usr/lib/systemd/system/$initfile.service /etc/systemd/system/ &> /dev/null
     sudo systemctl enable $initfile
 done
 
