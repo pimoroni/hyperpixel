@@ -87,8 +87,8 @@ Also copy the following:
 ```
 sudo cp ./requirements/usr/bin/hyperpixel-init /usr/bin/
 sudo cp ./requirements/usr/bin/hyperpixel-touch /usr/bin/
-sudo cp ./requirements/usr/lib/systemd/system/hyperpixel-init.service /usr/lib/systemd/system/
-sudo cp ./requirements/usr/lib/systemd/system/hyperpixel-touch.service /usr/lib/systemd/system/
+sudo cp ./requirements/usr/lib/systemd/system/hyperpixel-init.service /etc/systemd/system/
+sudo cp ./requirements/usr/lib/systemd/system/hyperpixel-touch.service /etc/systemd/system/
 ```
 
 Make sure the relevant files are executable:
