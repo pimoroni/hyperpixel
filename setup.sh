@@ -183,6 +183,12 @@ fi
 
 echo -e "Installing dependencies..."
 
+if ! [ -f "$(which python2)" ] && ! [ -f "$(which python3)" ]; then
+    echo "Python is not installed. Installing, this may take a while..."
+    progress apt-get &
+    apt_pkg_install "python-minimal"
+fi
+
 if apt_pkg_req "python-evdev" &> /dev/null; then
     sudo dpkg -i ./dependencies/python-evdev_0.6.4-1_armhf.deb
 fi
