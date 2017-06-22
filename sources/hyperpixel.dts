@@ -1,0 +1,75 @@
+/*
+ * Device tree overlay for HyperPixel
+ *
+ * Compile:
+ * dtc -@ -I dts -O dtb -o hyperpixel.dtbo hyperpixel.dts
+ */
+
+/dts-v1/;
+/plugin/;
+
+/{
+    compatible = "brcm,bcm2835", "brcm,bcm2836", "brcm,bcm2708", "brcm,bcm2709";
+
+    fragment@0 {
+        target = <&spi0>;
+        __overlay__ {
+            status = "disabled";
+        };
+    };
+
+    fragment@1 {
+        target = <&leds>;
+        __overlay__ {
+            pinctrl-names = "default";
+            pinctrl-0 = <&dpi18_pins>;
+        };
+    };
+
+    fragment@2 {
+        target = <&gpio>;
+        __overlay__ {
+            dpi18_pins: dpi18_pins {
+                brcm,pins = <0 1 2 3 4 5 6 7 8 9 12 13 14 15 16 17 20 21 22 23 24 25>;
+                brcm,function = <6>;
+                brcm,pull = <0>;
+            };
+        };
+    };
+
+    fragment@3 {
+        target-path = "/";
+        __overlay__ {
+            i2c_gpio: i2c@0 {
+                compatible = "i2c-gpio";
+                gpios = <&gpio 10 0 /* sda */
+                    &gpio 11 0 /* scl */
+                    >;
+                i2c-gpio,delay-us = <4>;
+                #address-cells = <1>;
+                #size-cells = <0>;
+            };
+        };
+    };
+
+    fragment@4 {
+        target = <&i2c_arm>;
+        __overlay__ {
+            status = "disabled";
+        };
+    };
+
+    fragment@5 {
+        target-path = "/aliases";
+        __overlay__ {
+            i2c_gpio = "/i2c@0";
+        };
+    };
+
+    fragment@6 {
+        target-path = "/__symbols__";
+        __overlay__ {
+            i2c_gpio = "/i2c@0";
+        };
+    };
+};
