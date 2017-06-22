@@ -1,0 +1,38 @@
+/*
+ * Device tree overlay for HyperPixel backlight (GPIO)
+ *
+ * Compile:
+ * dtc -@ -I dts -O dtb -o hyperpixel-gpio-backlight.dtbo hyperpixel-gpio-backlight.dts
+ */
+
+/dts-v1/;
+/plugin/;
+
+/{
+    compatible = "brcm,bcm2835", "brcm,bcm2836", "brcm,bcm2708", "brcm,bcm2709";
+
+    fragment@0 {
+        target-path = [2f 00];
+
+        __overlay__ {
+
+            rpi_backlight {
+                compatible = "gpio-backlight";
+                gpios = <0xdeadbeef 0x13 0x0>;
+                default-on;
+                fb = <0xdeadbeef>;
+                linux,phandle = <0x1>;
+                phandle = <0x1>;
+            };
+        };
+    };
+
+    __symbols__ {
+        rpi_backlight = "/fragment@0/__overlay__/rpi_backlight";
+    };
+
+    __fixups__ {
+        gpio = "/fragment@0/__overlay__/rpi_backlight:gpios:0";
+        fb = "/fragment@0/__overlay__/rpi_backlight:fb:0";
+    };
+};
