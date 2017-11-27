@@ -36,6 +36,8 @@ In addition, DAC type of products communicatng with the Pi over I2S are also inc
 
 ### LCD Display
 
+Make sure you have the OpenGL video driver disabled. You must use the "Legacy (Non GL)" driver which you can select in the "Advanced Options" section of `raspi-config`.
+
 First you'll need to grab the files from `requirements/boot` and place them in the relevant locations in `/boot` on your Pi.
 
 You can do this either on your Pi, or by inserting your SD card into a host computer.
