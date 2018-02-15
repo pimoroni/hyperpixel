@@ -26,15 +26,26 @@ Alternatively, clone this repository and run:
 
 reboot. That's all! Enjoy!
 
-## Important note
+### Uninstalling
+
+You will need to manually comment-out the `# HyperPixel LCD Settings` lines in your `/boot/config.txt`. See Manual Setup below for details on which these are.
+
+You should also stop the init and touchscreen scripts:
+
+```
+sudo systemctl disable hyperpixel-init
+sudo systemctl disable hyperpixel-touch
+```
+
+### Important note
 
 HyperPixel uses DPI mode 6, which means you can't use (hardware) I2C or SPI at the same time (the `setup.sh` script will disable those interfaces for you, but make sure not to reenable them by accident).
 
 In addition, DAC type of products communicating with the Pi over I2S are also incompatible, as they use the same pins. It is possible to use the on-board audio chip alongside HyperPixel however, provided you force route the audio signal over HDMI, or are happy losing refined control over the backlight (PWM).
 
-## Manual Setup
+### Manual Setup
 
-### LCD Display
+#### LCD Display
 
 Make sure you have the OpenGL video driver disabled. You must use the "Legacy (Non GL)" driver which you can select in the "Advanced Options" section of `raspi-config`.
 
@@ -67,7 +78,7 @@ hdmi_timings=800 0 50 20 50 480 1 3 2 3 0 0 0 60 0 32000000 6
 dtoverlay=hyperpixel-gpio-backlight
 ```
 
-### Touch Screen
+#### Touch Screen
 
 We need to ensure the `evdev` module is installed for Python. The easiest is to grab our pre-compiled deb file:
 
