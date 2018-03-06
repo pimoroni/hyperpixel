@@ -26,6 +26,18 @@ Alternatively, clone this repository and run:
 
 reboot. That's all! Enjoy!
 
+### Disabling Power Save
+
+Some scenarios don't play well with the display blanking or going to sleep after 5-10 minutes of inactivity. This is usually what every Linux distro bakes in, and, in most cases, is a perfectly acceptable default. However if you want to prevent HyperPixel from going to sleep drop this into your `/etc/rc.local` (or your equivalent startup script):
+
+```
+xset dpms force on
+xset s noblank
+xset s 0
+xset s off
+```
+More on DPMS in the [wiki](https://wiki.archlinux.org/index.php/Display_Power_Management_Signaling).
+
 ### Uninstalling
 
 You will need to manually comment-out the `# HyperPixel LCD Settings` lines in your `/boot/config.txt`. See Manual Setup below for details on which these are.
