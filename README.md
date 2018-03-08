@@ -28,13 +28,19 @@ reboot. That's all! Enjoy!
 
 ### Disabling Power Save
 
-Some scenarios don't play well with the display blanking or going to sleep after 5-10 minutes of inactivity. This is usually what every Linux distro bakes in, and, in most cases, is a perfectly acceptable default. However if you want to prevent HyperPixel from going to sleep drop this into your `/etc/rc.local` (or your equivalent startup script):
+Some scenarios don't play well with the display blanking or going to sleep after 5-10 minutes of inactivity. This is usually what every Linux distro bakes in, and, in most cases, is a perfectly acceptable default. However if you want to prevent HyperPixel from going to sleep add these lines to their respective configuration files:
+
+To prevent console blanking (framebuffer/text console), edit `/etc/kbd/config` and amend these settings:
 
 ```
-xset dpms force on
-xset s noblank
-xset s 0
-xset s off
+BLANK_TIME=0
+BLANK_DPMS=off
+POWERDOWN_TIME=0
+```
+
+To prevent X11 sessions from making your HyperPixel sleepy (DPMS power saving), add this line to `/etc/xdg/lxsession/LXDE/autostart`:
+```
+xset -display ":0" dpms force on
 ```
 More on DPMS in the [wiki](https://wiki.archlinux.org/index.php/Display_Power_Management_Signaling).
 
