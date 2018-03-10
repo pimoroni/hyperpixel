@@ -38,6 +38,8 @@ BLANK_DPMS=off
 POWERDOWN_TIME=0
 ```
 
+If you're on Raspbian Stretch (Debian 9.3), that config file doesn't exist. Instead, append `consoleblank=0` to the boot command in `/boot/cmdline.txt` and reboot.
+
 To prevent X11 sessions from making your HyperPixel sleepy (DPMS power saving), add this line to `/etc/xdg/lxsession/LXDE/autostart`:
 ```
 xset -display ":0" dpms force on
