@@ -26,6 +26,18 @@ except ImportError:
 
 os.system("sudo modprobe uinput")
 
+rotate = False
+
+try:
+    config = open("/boot/config.txt").read().split("\n")
+    for option in config:
+        if option.startswith("display_rotate="):
+            key, value = option.split("=")
+            if value.strip() == "0":
+               rotate = True
+except IOError:
+    pass
+
 DAEMON = True
 
 CAPABILITIES = {
@@ -209,13 +221,13 @@ def touch_finished(x1,y1,x2,y2):
 
     if touch_one_start and (x1,y1) == (0,0):
         touch_one_dur = time.time()-touch_one_start
-    
+
         touch_one_end = time.time()
         touch_one_start = None
 
     if touch_two_start and (x2,y2) == (0,0):
         touch_two_dur = time.time()-touch_two_start
-    
+
         touch_two_end = time.time()
         touch_two_start = None
 
@@ -260,7 +272,10 @@ def smbus_read_touch():
         if (x2==0 and y2==0 and touch_two_start) or (x1==0 and y1==0 and touch_one_start):
             touch_finished(x1,y1,x2,y2)
 
-        write_status(800-x1, 480-y1, touch_one_start is not None, 800-x2, 480-y2, touch_two_start is not None)
+        if rotate:
+            write_status(x1, y1, touch_one_start is not None, x2, y2, touch_two_start is not None)
+        else:
+            write_status(800-x1, 480-y1, touch_one_start is not None, 800-x2, 480-y2, touch_two_start is not None)
 
 
     except IOError as e:
