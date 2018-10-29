@@ -73,8 +73,6 @@ First you'll need to grab the files from `requirements/boot` and place them in t
 
 You can do this either on your Pi, or by inserting your SD card into a host computer.
 
-If you want to hotplug Hyper Pixel, place `requirements/usr/bin/hyperpixel-init` into `/usr/bin/` and run it with `hyperpixel-init` to initialize the LCD.
-
 Then, add the following to the bottom of your /boot/config.txt
 
 ```
@@ -97,6 +95,12 @@ hdmi_timings=800 0 50 20 50 480 1 3 2 3 0 0 0 60 0 32000000 6
 # Use a basic GPIO backlight driver with on/off support
 dtoverlay=hyperpixel-gpio-backlight
 ```
+
+You should reboot for the config.txt changes to take effect.
+
+Finally in all cases you must place `requirements/usr/bin/hyperpixel-init` into `/usr/bin/` and run it with `hyperpixel-init` to initialize the LCD. You might want to set this up to run on startup using the supplied systemd script: `requirements/usr/lib/systemd/system/hyperpixel-init.service` which should live in `/lib/systemd/system/`.
+
+To enable the systemd script run `sudo systemctl daemon-reload` followed by `sudo systemctl enable hyperpixel-init.service`.
 
 #### Touch Screen
 
