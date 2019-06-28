@@ -26,6 +26,15 @@ Alternatively, clone this repository and run:
 
 reboot. That's all! Enjoy!
 
+### Rotating The Screen
+
+You can rotate your screen by calling `hyperpixel-rotate` on the command line with one of `left`, `right`, `normal` or `inverted`:
+
+* left - portrait, USB ports on top
+* right - portait, USB ports on bottom
+* normal - landscape, HDMI ports on top
+* inverted - landscape, HDMI ports on bottom
+
 ### Disabling Power Save
 
 Some scenarios don't play well with the display blanking or going to sleep after 5-10 minutes of inactivity. This is usually what every Linux distro bakes in, and, in most cases, is a perfectly acceptable default. However if you want to prevent HyperPixel from going to sleep add these lines to their respective configuration files:
@@ -78,18 +87,10 @@ Then, add the following to the bottom of your /boot/config.txt
 ```
 # HyperPixel LCD Settings
 dtoverlay=hyperpixel
-overscan_left=0
-overscan_right=0
-overscan_top=0
-overscan_bottom=0
-framebuffer_width=800
-framebuffer_height=480
 enable_dpi_lcd=1
-display_default_lcd=1
 dpi_group=2
 dpi_mode=87
 dpi_output_format=0x6f016
-display_rotate=2
 hdmi_timings=800 0 50 20 50 480 1 3 2 3 0 0 0 60 0 32000000 6
 
 # Use a basic GPIO backlight driver with on/off support
@@ -124,6 +125,7 @@ Also copy the following:
 ```
 sudo cp ./requirements/usr/bin/hyperpixel-init /usr/bin/
 sudo cp ./requirements/usr/bin/hyperpixel-touch /usr/bin/
+sudo cp ./requirements/usr/bin/hyperpixel-rotate /usr/bin/
 sudo cp ./requirements/usr/lib/systemd/system/hyperpixel-init.service /usr/lib/systemd/system/
 sudo cp ./requirements/usr/lib/systemd/system/hyperpixel-touch.service /usr/lib/systemd/system/
 ```
@@ -133,6 +135,7 @@ Make sure the relevant files are executable:
 ```
 sudo chmod +x /usr/bin/hyperpixel-init
 sudo chmod +x /usr/bin/hyperpixel-touch
+sudo chmod +x /usr/bin/hyperpixel-rotate
 ```
 
 And ensure the services run on startup:
