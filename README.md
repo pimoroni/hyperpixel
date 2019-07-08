@@ -5,6 +5,8 @@ A high-resolution, high-speed 3.5" TFT display for your Raspberry Pi.
 
 ## Installing
 
+**Note:** This installer will not work on **Pi 4**. Please use the pi4 branch here - https://github.com/pimoroni/hyperpixel/tree/pi4
+
 ### Full install (recommended):
 
 We've created an easy installation script that will install all pre-requisites and get your HyperPixel up and running with minimal efforts. To run it, fire up Terminal which you'll find in Menu -> Accessories -> Terminal
