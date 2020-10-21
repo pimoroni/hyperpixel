@@ -204,7 +204,9 @@ echo -e "\nInstalling Requirements..."
 dtbolist=( "hyperpixel" "hyperpixel-gpio-backlight" )
 
 for dtbofile in ${dtbolist[@]}; do
-    sudo cp ./requirements/boot/overlays/$dtbofile.dtbo /boot/overlays/ &> /dev/null
+    echo -e "\nBuilding & installing $dtbofile.dtbo"
+    dtc -q -I dts -O dtb -o ./sources/$dtbofile.dtbo ./sources/$dtbofile.dts
+    sudo cp ./sources/$dtbofile.dtbo /boot/overlays/ &> /dev/null
 done
 
 binlist=( "hyperpixel-init" "hyperpixel-touch" "hyperpixel-rotate" )
