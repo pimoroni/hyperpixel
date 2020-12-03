@@ -15,7 +15,13 @@ on your Raspberry Pi desktop, as illustrated below:
 In the new terminal window type the command exactly as it appears below (check for typos) and follow the on-screen instructions:
 
 ```bash
-curl https://get.pimoroni.com/hyperpixel | bash
+wget https://get.pimoroni.com/hyperpixel 
+```
+
+Now run ```nano hyperpixel``` and change ```gitrepobranch="master"``` to ```gitrepobranch="pi4"``` and continue with:
+
+```bash
+cat hyperpixel | bash
 ```
 
 Alternatively, clone this repository and run:
