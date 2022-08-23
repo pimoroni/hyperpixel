@@ -1,11 +1,14 @@
 ![HyperPixel](https://ci6.googleusercontent.com/proxy/YfpDcYSZFXtvv1LQvBIXDtw6FxcszF5TjyhccIQHJGkMGMoEGhPKsX99aFiLl7Ktj13uP6MotUZTroGpkaCQ_bvAYkEa9yt6EXYCE5IG8XOjdZDZvC7eOkdljnwDpWjn20xakMVj__3ktnf8AKg9oPtRSTU7TmNkin670P8=s0-d-e1-ft#https://gallery.mailchimp.com/96bc28d6ec83869a3f0b79a62/images/bfd012fb-9ad5-4fc8-9d9c-9c66a9ecb80d.png)
-https://shop.pimoroni.com/products/hyperpixel
 
 A high-resolution, high-speed 3.5" TFT display for your Raspberry Pi.
 
+⚠ This 3.5" version of Hyperpixel is now **discontinued** - check out [Hyperpixel 4](https://shop.pimoroni.com/products/hyperpixel-4)!
+
 ## Installing
 
-**Note:** This installer will not work on **Pi 4**. Please use the pi4 branch here - https://github.com/pimoroni/hyperpixel/tree/pi4
+**Note:** The installer linked below will not work on **Pi 4**. Please use the pi4 branch here - https://github.com/pimoroni/hyperpixel/tree/pi4 . 
+
+In all cases, you will need to use the **legacy/Buster flavour of Raspberry Pi OS** (find it under 'Raspberry Pi OS (other)' in Raspberry Pi Imager). Bullseye and subsequent versions of Pi OS are not supported.
 
 ### Full install (recommended):
 
