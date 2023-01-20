@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 import os
 import signal
@@ -26,15 +26,23 @@ except ImportError:
 
 os.system("sudo modprobe uinput")
 
-rotate = False
+rotate = 0
+framebuffer_width = 800
+framebuffer_hight = 480
 
 try:
     config = open("/boot/config.txt").read().split("\n")
     for option in config:
         if option.startswith("display_rotate="):
             key, value = option.split("=")
-            if value.strip() == "0":
-               rotate = True
+            rotate = int(value.strip())
+        elif option.startswith("framebuffer_width="):
+            key, value = option.split("=")
+            framebuffer_width = int(value.strip())
+        elif option.startswith("framebuffer_hight="):
+            key, value = option.split("=")
+            framebuffer_hight = int(value.strip())
+
 except IOError:
     pass
 
@@ -42,12 +50,12 @@ DAEMON = True
 
 CAPABILITIES = {
     e.EV_ABS : (
-        (e.ABS_X, AbsInfo(value=0, min=0, max=800, fuzz=0, flat=0, resolution=1)),
-        (e.ABS_Y, AbsInfo(value=0, min=0, max=480, fuzz=0, flat=0, resolution=1)),
+        (e.ABS_X, AbsInfo(value=0, min=0, max=framebuffer_width, fuzz=0, flat=0, resolution=1)),
+        (e.ABS_Y, AbsInfo(value=0, min=0, max=framebuffer_hight, fuzz=0, flat=0, resolution=1)),
         (e.ABS_MT_SLOT, AbsInfo(value=0, min=0, max=1, fuzz=0, flat=0, resolution=0)),
         (e.ABS_MT_TRACKING_ID, AbsInfo(value=0, min=0, max=65535, fuzz=0, flat=0, resolution=0)),
-        (e.ABS_MT_POSITION_X, AbsInfo(value=0, min=0, max=800, fuzz=0, flat=0, resolution=0)),
-        (e.ABS_MT_POSITION_Y, AbsInfo(value=0, min=0, max=480, fuzz=0, flat=0, resolution=0)),
+        (e.ABS_MT_POSITION_X, AbsInfo(value=0, min=0, max=framebuffer_width, fuzz=0, flat=0, resolution=0)),
+        (e.ABS_MT_POSITION_Y, AbsInfo(value=0, min=0, max=framebuffer_hight, fuzz=0, flat=0, resolution=0)),
     ),
     e.EV_KEY : [
         e.BTN_TOUCH, 
@@ -272,10 +280,14 @@ def smbus_read_touch():
         if (x2==0 and y2==0 and touch_two_start) or (x1==0 and y1==0 and touch_one_start):
             touch_finished(x1,y1,x2,y2)
 
-        if rotate:
+        if rotate == 0:
             write_status(x1, y1, touch_one_start is not None, x2, y2, touch_two_start is not None)
-        else:
-            write_status(800-x1, 480-y1, touch_one_start is not None, 800-x2, 480-y2, touch_two_start is not None)
+        elif rotate == 1:
+            write_status(y1, framebuffer_height - x1, touch_one_start is not None, y2, framebuffer_height - x1, touch_two_start is not None)
+        elif rotate == 2:
+            write_status(framebuffer_width-x1, framebuffer_hight-y1, touch_one_start is not None, framebuffer_width-x2, framebuffer_hight-y2, touch_two_start is not None)
+        elif rotate == 3:
+            write_status(framebuffer_width - y1, x1, touch_one_start is not None, framebuffer_width - y2, x1, touch_two_start is not None)
 
 
     except IOError as e:
